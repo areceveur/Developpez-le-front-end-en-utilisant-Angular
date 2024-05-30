@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { olympicsCountry } from '../models/Olympic';
+import { participations } from '../models/Participation';
 
 @Injectable({
   providedIn: 'root',
@@ -10,55 +11,53 @@ import { olympicsCountry } from '../models/Olympic';
 
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<any>(undefined);
+  private olympics$ = new BehaviorSubject<olympicsCountry[]>([]);
+  private participations$ = new BehaviorSubject<participations[]>([]);
+  public countries = this.olympics$.asObservable();
+  public medals = this.participations$.asObservable();
 
-  olympic: olympicsCountry[] = [
-    {
-      id: 1,
-      country: "Italy"
-    },
-    {
-      id: 2,
-      country: "Spain"
-    },
-    {
-      id: 3,
-      country: "United States"
-    },
-    {
-      id: 4,
-      country: "Germany"
-    },
-    {
-      id: 5,
-      country: "France"
-    }
 
-  ];
+  olympic: olympicsCountry[] = [];
+  participation: participations[] = [];
 
-  getAllCountries(): olympicsCountry[] {
-    return this.olympic;
-  }
 
   constructor(private http: HttpClient) {}
 
   loadInitialData() {
-    return this.http.get<any>(this.olympicUrl).pipe(
+    return this.http.get<olympicsCountry[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
         // TODO: improve error handling
         console.error(error);
         // can be useful to end loading state and let the user know something went wrong
-        this.olympics$.next(null);
+        /*this.countries.next();*/
         return caught;
+      }),
+      map((countries) => {
+        return countries;
       })
     );
   }
 
-  getOlympics() {
-    return this.olympics$.asObservable();
+  loadParticipationData() {
+    return this.http.get<participations[]>(this.olympicUrl).pipe(
+      tap((value) => this.participations$.next(value)),
+      catchError((error, caught) => {
+        console.error(error);
+        return caught;
+      }),
+      map((medals) => {
+        return medals;
+      })
+    );
   }
 
-  
 
+  getOlympics() {
+    return this.countries;
+  }
+
+  getMedals() {
+    return this.medals;
+  }
 }
