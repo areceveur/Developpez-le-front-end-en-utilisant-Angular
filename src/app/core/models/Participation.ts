@@ -10,10 +10,10 @@ example of participation:
 }
 */
 
-export class participations {
-    id!: number;
-    year!: number;
-    city!: string;
-    medalsCount!: number;
-    athleteCount!: number;
+export interface participations {
+    id: number;
+    year: number;
+    city: string;
+    medalsCount: number;
+    athleteCount: number;
 }

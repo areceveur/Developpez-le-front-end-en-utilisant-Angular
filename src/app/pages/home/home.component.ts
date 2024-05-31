@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { olympicsCountry } from 'src/app/core/models/Olympic';
 import { participations } from 'src/app/core/models/Participation';
@@ -21,19 +21,39 @@ export type ChartOptions = {
 })
 export class HomeComponent implements OnInit {
   //@Input() olympicsCountry!: olympicsCountry;
-  public olympics$: Observable<olympicsCountry[]> = this.olympicService.countries;
-  public medals$: Observable<participations[]> = this.olympicService.medals;
-  //country!: any;
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
 
-  /*public olympics$: any;
-  olympicsCountries!: olympicsCountry[];*/
+  public olympics$: Observable<olympicsCountry[]> = this.olympicService.getOlympics();
+  public medals$: Observable<participations[]> = this.olympicService.getMedals();
 
-  constructor(private olympicService: OlympicService) {}
+
+  constructor(private olympicService: OlympicService) {
+    this.chartOptions = {
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      labels: this.olympics$,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    }
+  }
 
   ngOnInit(): void {
     //this.olympics$ = this.olympicService.getOlympics();
-
-    this.olympicService.loadInitialData();
-    this.olympicService.loadParticipationData();
+    this.olympics$;
+    this.medals$;
   }
 }
