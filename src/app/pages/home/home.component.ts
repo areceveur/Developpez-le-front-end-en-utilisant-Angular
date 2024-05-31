@@ -21,14 +21,14 @@ export type ChartOptions = {
 })
 export class HomeComponent implements OnInit {
   //@Input() olympicsCountry!: olympicsCountry;
-  @ViewChild("chart") chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  //@ViewChild("chart") chart: ChartComponent;
+  //public chartOptions: Partial<ChartOptions>;
 
-  public olympics$: Observable<olympicsCountry[]> = this.olympicService.getOlympics();
-  public medals$: Observable<participations[]> = this.olympicService.getMedals();
+  //public olympics$: Observable<olympicsCountry[]> = this.olympicService.getOlympics();
+  //public medals$: Observable<participations[]> = this.olympicService.getMedals();
+  olympics: olympicsCountry[] = [];
 
-
-  constructor(private olympicService: OlympicService) {
+  constructor(private olympicService: OlympicService) {} /*{
     this.chartOptions = {
       chart: {
         width: 380,
@@ -49,11 +49,20 @@ export class HomeComponent implements OnInit {
         }
       ]
     }
-  }
+  }*/
 
   ngOnInit(): void {
     //this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$;
-    this.medals$;
+    //this.olympics$;
+    //this.medals$;
+    this.olympicService.loadInitialData().subscribe(
+      (data) => {
+        this.olympics = data;
+    });
+    //this.olympicService.getOlympics().subscribe();
+  }
+
+  getTotalMedals(participations: {medalsCount: number}[]): number {
+    return participations.reduce((total,p) => total + p.medalsCount, 0);
   }
 }

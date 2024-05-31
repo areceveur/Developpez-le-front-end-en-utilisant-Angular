@@ -12,9 +12,9 @@ import { participations } from '../models/Participation';
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<olympicsCountry[]>([]);
-  private participations$ = new BehaviorSubject<participations[]>([]);
-  public countries: Observable<olympicsCountry[]> = this.olympics$.asObservable();
-  public medals: Observable<participations[]> = this.participations$.asObservable();
+  //private participations$ = new BehaviorSubject<participations[]>([]);
+  //public countries: Observable<olympicsCountry[]> = this.olympics$.asObservable();
+  //public medals: Observable<participations[]> = this.participations$.asObservable();
 
 
   /*olympic: olympicsCountry[] = [];
@@ -23,11 +23,10 @@ export class OlympicService {
 
   constructor(private http: HttpClient) {}
 
-  loadInitialData() {
+  loadInitialData(): Observable<olympicsCountry[]> {
     return this.http.get<olympicsCountry[]>(this.olympicUrl).pipe(
       tap((value) => {
         this.olympics$.next(value);
-        this.participations$.next([]);
       }),
       catchError((error, caught) => {
         // TODO: improve error handling
@@ -52,11 +51,11 @@ export class OlympicService {
   }*/
 
 
-  getOlympics() {
-    return this.countries;
-  }
+  //getOlympics(): Observable<olympicsCountry[]> {
+  //  return this.countries;
+  //}
 
-  getMedals() {
+  /*getMedals() {
     return this.medals;
-  }
+  }*/
 }

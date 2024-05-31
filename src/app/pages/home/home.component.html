@@ -1,10 +1,27 @@
 <h2>Olympic games app</h2>
 <hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
-<!--<p>{{ (medals$ | async)?.length }} participation loaded</p>-->
+
+<div *ngIf="olympics.length > 0">
+    {{ olympics.length }} countries loaded
+    <ul>
+        <li *ngFor="let country of olympics">
+            <strong> {{ country.country }}:</strong>
+            <ul>
+                <li *ngFor="let participations of country.participation">
+                    Year: {{ participations.year }}, Medals Count: {{ participations.medalsCount }}
+                </li>
+            </ul>
+            <p>Total Medals: {{ getTotalMedals(country.participation) }}</p>
+        </li>
+    </ul>
+</div>
+
+<!--<p>{{ (olympics$ | async)?.length }} data loaded</p>
+
+<p>{{ (medals$ | async)?.length }} participation loaded</p>
 <ng-container *ngIf="(olympics$ | async) as countries">
     <ul>
-        <li *ngFor="let country of countries"> {{ country.country }} </li>
+        <li *ngFor="let country of countries"> {{ country.country }} {{ country.participation }}</li>
     </ul>
 </ng-container>
 
@@ -12,5 +29,5 @@
     <ul>
         <li *ngFor="let medal of medals"> {{ medal.participation }}</li>
     </ul>
-</ng-container>
+</ng-container>-->
 
