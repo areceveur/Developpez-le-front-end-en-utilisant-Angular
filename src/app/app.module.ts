@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RouterOutlet } from '@angular/router';
+import { NgApexchartsModule} from 'ng-apexcharts';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, HomeComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgApexchartsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

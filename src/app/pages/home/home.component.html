@@ -1,33 +1,20 @@
 <h2>Olympic games app</h2>
 <hr />
 
-<div *ngIf="olympics.length > 0">
-    {{ olympics.length }} countries loaded
-    <ul>
-        <li *ngFor="let country of olympics">
-            <strong> {{ country.country }}:</strong>
-            <ul>
-                <li *ngFor="let participations of country.participation">
-                    Year: {{ participations.year }}, Medals Count: {{ participations.medalsCount }}
-                </li>
-            </ul>
-            <p>Total Medals: {{ getTotalMedals(country.participation) }}</p>
-        </li>
-    </ul>
+<div *ngIf="chartOptions?.series?.length && chartOptions?.labels?.length" style="display: block; width:100%; max-width: 500px; margin: auto;">
+    <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [labels]="chartOptions.labels"
+    [responsive]="chartOptions.responsive">
+    </apx-chart>
 </div>
 
-<!--<p>{{ (olympics$ | async)?.length }} data loaded</p>
-
-<p>{{ (medals$ | async)?.length }} participation loaded</p>
-<ng-container *ngIf="(olympics$ | async) as countries">
+ {{ countries.length }} countries loaded
     <ul>
-        <li *ngFor="let country of countries"> {{ country.country }} {{ country.participation }}</li>
+        <li *ngFor="let country of countries">
+            <strong> {{ country.country }}:</strong>
+            {{ getTotalMedals(country.participations) }} medals won
+        </li>
     </ul>
-</ng-container>
-
-<ng-container *ngIf="(olympics$ | async) as medals">
-    <ul>
-        <li *ngFor="let medal of medals"> {{ medal.participation }}</li>
-    </ul>
-</ng-container>-->
 

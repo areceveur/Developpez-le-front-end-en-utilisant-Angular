@@ -9,25 +9,15 @@ import { participations } from '../models/Participation';
   providedIn: 'root',
 })
 
+
+
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<olympicsCountry[]>([]);
-  //private participations$ = new BehaviorSubject<participations[]>([]);
-  //public countries: Observable<olympicsCountry[]> = this.olympics$.asObservable();
-  //public medals: Observable<participations[]> = this.participations$.asObservable();
-
-
-  /*olympic: olympicsCountry[] = [];
-  participation: participations[] = [];*/
-
 
   constructor(private http: HttpClient) {}
 
   loadInitialData(): Observable<olympicsCountry[]> {
     return this.http.get<olympicsCountry[]>(this.olympicUrl).pipe(
-      tap((value) => {
-        this.olympics$.next(value);
-      }),
       catchError((error, caught) => {
         // TODO: improve error handling
         console.error(error);
@@ -36,26 +26,4 @@ export class OlympicService {
       }),
     );
   }
-
-  /*loadParticipationData() {
-    return this.http.get<participations[]>(this.olympicUrl).pipe(
-      tap((value) => this.participations$.next(value)),
-      catchError((error, caught) => {
-        console.error(error);
-        return caught;
-      }),
-      map((medals) => {
-        return medals;
-      })
-    );
-  }*/
-
-
-  //getOlympics(): Observable<olympicsCountry[]> {
-  //  return this.countries;
-  //}
-
-  /*getMedals() {
-    return this.medals;
-  }*/
 }
