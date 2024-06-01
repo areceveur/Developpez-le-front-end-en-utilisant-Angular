@@ -1,17 +1,18 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RouterOutlet } from '@angular/router';
-import { NgApexchartsModule} from 'ng-apexcharts';
+import { CanvasJSAngularChartsModule} from '@canvasjs/angular-charts';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, HomeComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgApexchartsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, CanvasJSAngularChartsModule],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

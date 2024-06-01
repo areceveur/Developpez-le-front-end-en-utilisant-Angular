@@ -1,20 +1,10 @@
 <h2>Olympic games app</h2>
 <hr />
 
-<div *ngIf="chartOptions?.series?.length && chartOptions?.labels?.length" style="display: block; width:100%; max-width: 500px; margin: auto;">
-    <apx-chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [labels]="chartOptions.labels"
-    [responsive]="chartOptions.responsive">
-    </apx-chart>
+<div *ngIf="chartOptions" style="display: block; width:100%; max-width: 500px; margin: auto;">
+    <canvasjs-angular-chart [options]="chartOptions">
+    </canvasjs-angular-chart>
 </div>
 
  {{ countries.length }} countries loaded
-    <ul>
-        <li *ngFor="let country of countries">
-            <strong> {{ country.country }}:</strong>
-            {{ getTotalMedals(country.participations) }} medals won
-        </li>
-    </ul>
 
