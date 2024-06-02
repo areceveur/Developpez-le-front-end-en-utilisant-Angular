@@ -1,10 +1,18 @@
 <h2>Olympic games app</h2>
 <hr />
 
-<div *ngIf="chartOptions" style="display: block; width:100%; max-width: 500px; margin: auto;">
-    <canvasjs-angular-chart [options]="chartOptions">
-    </canvasjs-angular-chart>
-</div>
+<div *ngIf="chartOptions">
+    <ngx-charts-pie-chart
+      [results]="chartOptions"
+      [view]="[500, 300]"
+      [gradient]="false"
+      [showLegend]="true"
+      [showLabels]="true"
+      [explodeSlices]="false"
+      [doughnut]="false"
+      (select)="onSelect($event)">
+    </ngx-charts-pie-chart>
+  </div>
 
  {{ countries.length }} countries loaded
 
