@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { olympicsCountry } from '../models/Olympic';
 import { participations } from '../models/Participation';
-import { ChartOptions } from 'src/app/core/models/Chart';
+import { lineChart } from 'src/app/core/models/Chart';
 
 
 @Injectable({
@@ -13,7 +13,7 @@ import { ChartOptions } from 'src/app/core/models/Chart';
 
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-
+  participations = [];
   constructor(private http: HttpClient) {}
 
   loadInitialData(): Observable<olympicsCountry[]> {

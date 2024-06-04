@@ -4,7 +4,8 @@
 <div *ngIf="chartOptions">
     <ngx-charts-pie-chart
       [results]="chartOptions"
-      [view]="[500, 300]"
+      [labels]="true"
+      [view]="[800, 500]"
       [gradient]="false"
       [showLegend]="true"
       [showLabels]="true"
@@ -13,6 +14,3 @@
       (select)="onSelect($event)">
     </ngx-charts-pie-chart>
   </div>
-
- {{ countries.length }} countries loaded
-

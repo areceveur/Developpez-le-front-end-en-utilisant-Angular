@@ -7,9 +7,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RouterOutlet } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DetailComponent } from './pages/detail/detail.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, HomeComponent],
+  declarations: [AppComponent, NotFoundComponent, HomeComponent, DetailComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
