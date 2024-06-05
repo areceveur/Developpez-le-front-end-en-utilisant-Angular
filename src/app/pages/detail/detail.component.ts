@@ -13,6 +13,7 @@ import { participations } from 'src/app/core/models/Participation';
 export class DetailComponent implements OnInit, OnDestroy {
   chartOptions: lineChart[] = [];
   participations: olympicsCountry[] = [];
+  idCountry!: number;
   private destroy$!: Subject<boolean>;
 
   constructor(private olympicService: OlympicService) {}
@@ -24,6 +25,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       this.participations = data;
       this.renderChart();
     })
+
   }
 
   renderChart(): void {

@@ -30,4 +30,12 @@ export class OlympicService {
     return participations.reduce((total, participation) => total + participation.medalsCount, 0);
   }
 
+  getCountryId(countryId: number): void {
+    const Id = this.loadInitialData().subscribe((data: olympicsCountry[]) => {
+      data.map(num => ({
+        numero: num.id === countryId
+      }));
+    })
+}
+
 }

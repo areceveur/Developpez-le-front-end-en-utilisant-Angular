@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.destroy$ = new Subject<boolean>();
       this.olympicService.loadInitialData().subscribe((data: olympicsCountry[]) => {
       takeUntil(this.destroy$);
-        this.countries = data;
+      this.countries = data;
       this.renderChart();
 
     })
