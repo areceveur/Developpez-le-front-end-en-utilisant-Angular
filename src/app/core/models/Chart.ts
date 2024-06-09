@@ -4,6 +4,11 @@ export interface pieChart {
   };
 
   export interface lineChart {
-    date: number[];
-    participation: number[];
+    name: string;
+    series: {
+      name: string;
+      value: number;
+    }[]
+      
+    
   }

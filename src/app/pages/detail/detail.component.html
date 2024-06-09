@@ -1,15 +1,13 @@
 <h2>Detail page</h2>
 <hr />
-<div *ngIf="chartOptions">
+<div *ngIf=" chartOptions">
     <ngx-charts-line-chart
     [view]="[800, 500]"
-    [legend]="true"
-    [showXAxisLabel]="true"
-    [showYAxisLabel]="true"
     [xAxis]="true"
+    [xAxisLabel]="'Year'"
     [yAxis]="true"
-    [timeline]="true"
-    [results]="chartOptions"
-    (select)="onSelect($event)">
+    [yAxisLabel]="'Medal Count'"
+    [results]= "chartOptions"
+    [scheme]="'cool'">
 </ngx-charts-line-chart>
 </div>

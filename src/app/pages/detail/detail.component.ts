@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, count, takeUntil } from 'rxjs';
 import { olympicsCountry } from 'src/app/core/models/Olympic';
 import { lineChart } from 'src/app/core/models/Chart';
-import { participations } from 'src/app/core/models/Participation';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detail',
@@ -12,31 +12,31 @@ import { participations } from 'src/app/core/models/Participation';
 })
 export class DetailComponent implements OnInit, OnDestroy {
   chartOptions: lineChart[] = [];
-  participations: olympicsCountry[] = [];
-  idCountry!: number;
-  private destroy$!: Subject<boolean>;
+  private destroy$ = new Subject<boolean>();
+  country!: olympicsCountry;
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService,
+    private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.destroy$ = new Subject<boolean>();
-    this.olympicService.loadInitialData().subscribe((data: olympicsCountry[]) => {
-      takeUntil(this.destroy$);
-      this.participations = data;
-      this.renderChart();
-    })
-
+    const countryId = +this.route.snapshot.params['id'];
+    this.olympicService.getCountryId(countryId).pipe(takeUntil(this.destroy$)).subscribe((country: olympicsCountry) => {
+        console.log(country.country)
+        this.country = country;
+        this.renderChart();
+    });
   }
+
 
   renderChart(): void {
-    this.chartOptions = this.participations.map(data => ({
-      date: data.participations.map(yearTime => yearTime.year),
-      participation: data.participations.map(allMedals => allMedals.medalsCount),
-    }))
-  }
-  
-  onSelect(event: any) {
-    console.log(event);
+    this.chartOptions = [{
+      name: this.country.country,
+      series: this.country.participations.map(series => ({
+        name: series.year.toString(),
+        value: series.medalsCount
+      }))
+    }];
+    console.log(this.chartOptions);
   }
 
   ngOnDestroy(): void {

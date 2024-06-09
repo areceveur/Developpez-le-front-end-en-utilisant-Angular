@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { olympicsCountry } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { pieChart } from 'src/app/core/models/Chart';
-import { Subject, Subscriber, take, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,30 +13,33 @@ import { Subject, Subscriber, take, takeUntil } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
   chartOptions: pieChart[] = [];
   countries: olympicsCountry[] = [];
-  private destroy$!: Subject<boolean>;
+  private destroy$ = new Subject<boolean>();
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService,
+    private router: Router) {}
 
   ngOnInit(): void {
-    this.destroy$ = new Subject<boolean>();
-      this.olympicService.loadInitialData().subscribe((data: olympicsCountry[]) => {
-      takeUntil(this.destroy$);
+      this.olympicService.loadInitialData().pipe(takeUntil(this.destroy$)).subscribe((data: olympicsCountry[]) => {
       this.countries = data;
       this.renderChart();
-
     })
   }
 
   renderChart(): void {
     this.chartOptions = this.countries.map(country => ({
+      id: country.id,
       name: country.country,
       value: this.olympicService.getTotalMedals(country.participations)
     }));
   }
   
-  onSelect(event: any) {
-    console.log(event);
+  onSelect(event: {name: string} ): void {
+    const country = this.countries.find(country => country.country === event.name);
+    if (country) {  
+      this.router.navigate(['/detail', country.id]);
+    }
   }
+
 
   ngOnDestroy(): void {
       this.destroy$.next(true);

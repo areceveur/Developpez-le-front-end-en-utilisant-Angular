@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { olympicsCountry } from '../models/Olympic';
 import { participations } from '../models/Participation';
-import { lineChart } from 'src/app/core/models/Chart';
 
 
 @Injectable({
@@ -14,6 +13,7 @@ import { lineChart } from 'src/app/core/models/Chart';
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   participations = [];
+
   constructor(private http: HttpClient) {}
 
   loadInitialData(): Observable<olympicsCountry[]> {
@@ -30,12 +30,15 @@ export class OlympicService {
     return participations.reduce((total, participation) => total + participation.medalsCount, 0);
   }
 
-  getCountryId(countryId: number): void {
-    const Id = this.loadInitialData().subscribe((data: olympicsCountry[]) => {
-      data.map(num => ({
-        numero: num.id === countryId
-      }));
-    })
-}
-
+  getCountryId(countryId: number): Observable<olympicsCountry> {
+    return this.loadInitialData().pipe(
+      map((data: olympicsCountry[]) => {
+        const Id = data.find(Id => Id.id === countryId);
+        if (!Id) {
+          throw new Error('Country not found!');
+        }
+        return Id;
+      })
+    );
+  }
 }
