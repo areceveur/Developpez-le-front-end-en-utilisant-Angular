@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Subject, count, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { olympicsCountry } from 'src/app/core/models/Olympic';
 import { lineChart } from 'src/app/core/models/Chart';
 import { ActivatedRoute } from '@angular/router';

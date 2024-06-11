@@ -1,5 +1,3 @@
-// TODO: create here a typescript interface for a participation
-
 export interface participations {
     id: number;
     year: number;

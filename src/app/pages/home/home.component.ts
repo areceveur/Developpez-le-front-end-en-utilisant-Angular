@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router) {}
 
   ngOnInit(): void {
-      this.olympicService.loadInitialData().pipe(takeUntil(this.destroy$)).subscribe((data: olympicsCountry[]) => {
+      this.olympicService.loadInitialData().pipe(takeUntil(this.destroy$)).
+      subscribe((data: olympicsCountry[]) => {
       this.countries = data;
       this.renderChart();
     })
@@ -45,7 +46,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.router.navigate(['/detail', country.id]);
     }
   }
-
 
   ngOnDestroy(): void {
       this.destroy$.next(true);

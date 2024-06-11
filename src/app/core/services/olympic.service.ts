@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { olympicsCountry } from '../models/Olympic';
 import { participations } from '../models/Participation';
 
@@ -19,10 +19,7 @@ export class OlympicService {
   loadInitialData(): Observable<olympicsCountry[]> {
     return this.http.get<olympicsCountry[]>(this.olympicUrl).pipe(
       catchError((error, caught) => {
-        // TODO: improve error handling
-        console.error(error);
-        // can be useful to end loading state and let the user know something went wrong
-        return caught;
+        throw new Error("Somethong went wrong. Please try again later");
     }));
   }
 
