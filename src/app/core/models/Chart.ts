@@ -9,6 +9,4 @@ export interface pieChart {
       name: string;
       value: number;
     }[]
-      
-    
   }

@@ -19,8 +19,14 @@ export class OlympicService {
   loadInitialData(): Observable<olympicsCountry[]> {
     return this.http.get<olympicsCountry[]>(this.olympicUrl).pipe(
       catchError((error, caught) => {
-        throw new Error("Somethong went wrong. Please try again later");
+        throw new Error("Something went wrong. Please try again later");
     }));
+  }
+
+  getNumberOfJO(countryId: number): Observable<number> {
+    return this.getCountryId(countryId).pipe(
+      map(country => country ? country.participations.length : 0)
+    );
   }
 
   getTotalMedals(participations: participations[]): number {
@@ -40,12 +46,6 @@ export class OlympicService {
         }
         return Id;
       })
-    );
-  }
-
-  getNumberOfJO(countryId: number): Observable<number> {
-    return this.getCountryId(countryId).pipe(
-      map(country => country ? country.participations.length : 0)
     );
   }
 

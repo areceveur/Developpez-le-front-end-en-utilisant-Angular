@@ -23,11 +23,11 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const countryId = +this.route.snapshot.params['id'];
-    this.olympicService.getCountryId(countryId).pipe(takeUntil(this.destroy$)).subscribe((country: olympicsCountry) => {
+    this.olympicService.getCountryId(countryId).pipe(takeUntil(this.destroy$))
+      .subscribe((country: olympicsCountry) => {
         console.log(country.country)
         this.country = country;
         this.renderChart();
-
     });
 
     this.olympicService.getNumberOfJO(countryId).pipe(takeUntil(this.destroy$))
@@ -35,12 +35,12 @@ export class DetailComponent implements OnInit, OnDestroy {
           this.numberOfOlympics = number;
       });
     
-    this.olympicService.getMedalAndAthleteCount(countryId).pipe(takeUntil(this.destroy$)).subscribe(count => {
-      this.totalMedals = count.medals;
-      this.totalAthletes = count.athletes;
+    this.olympicService.getMedalAndAthleteCount(countryId).pipe(takeUntil(this.destroy$))
+      .subscribe(count => {
+        this.totalMedals = count.medals;
+        this.totalAthletes = count.athletes;
     });
   }
-
 
   renderChart(): void {
     this.chartOptions = [{
