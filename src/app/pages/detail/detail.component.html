@@ -1,13 +1,28 @@
-<h2>Detail page</h2>
-<hr />
-<div *ngIf=" chartOptions">
-    <ngx-charts-line-chart
-    [view]="[800, 500]"
-    [xAxis]="true"
-    [xAxisLabel]="'Year'"
-    [yAxis]="true"
-    [yAxisLabel]="'Medal Count'"
-    [results]= "chartOptions"
-    [scheme]="'cool'">
-</ngx-charts-line-chart>
-</div>
+<h2 class="title">{{ country.country }}</h2>
+    <div class="subtitle_block">
+        <div class="subtitles">
+        Number of JOs<br>
+        <b>{{ numberOfOlympics }}</b>
+        </div>
+        <div class="subtitles">
+        Total number of medals<br>
+        <b>{{ totalMedals}}</b>
+        </div>
+        <div class="subtitles">
+            Total number of athletes<br>
+            <b>{{ totalAthletes }}</b>
+        </div>
+    </div>
+  
+    <div *ngIf=" chartOptions">
+        <ngx-charts-line-chart class = "linechart"
+        [view]="[800, 500]"
+        [xAxis]="true"
+        [xAxisLabel]="'Year'"
+        [yAxis]="true"
+        [yAxisLabel]="'Medal Count'"
+        [results]= "chartOptions"
+        [scheme]="'cool'">
+        </ngx-charts-line-chart>
+    </div>
+<a class="button_back" routerLink="">Back</a>

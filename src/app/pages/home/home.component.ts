@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   chartOptions: pieChart[] = [];
   countries: olympicsCountry[] = [];
   private destroy$ = new Subject<boolean>();
+  countryId = 1;
+  numberOfOlympics!: number;
 
   constructor(private olympicService: OlympicService,
     private router: Router) {}
@@ -23,6 +25,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.countries = data;
       this.renderChart();
     })
+    this.olympicService.getNumberOfJO(this.countryId).pipe(takeUntil(this.destroy$))
+      .subscribe(number => {
+          this.numberOfOlympics = number;
+      });
   }
 
   renderChart(): void {

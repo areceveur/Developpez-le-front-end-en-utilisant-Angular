@@ -1,0 +1,38 @@
+.title {
+    position: center;
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(41, 144, 144);
+    color: white;
+    border-radius: 10px;
+    width: 300px;
+    height: 50px;
+    margin: auto;
+}
+
+.piechart {
+    position: center;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.subtitle_block {
+    display: flex;
+    position: center;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+}
+
+.subtitles {
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+    border: 2px solid rgb(41, 144, 144);
+    border-radius: 10px;
+    width: 200px;
+}

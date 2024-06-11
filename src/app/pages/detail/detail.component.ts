@@ -14,6 +14,9 @@ export class DetailComponent implements OnInit, OnDestroy {
   chartOptions: lineChart[] = [];
   private destroy$ = new Subject<boolean>();
   country!: olympicsCountry;
+  numberOfOlympics!: number;
+  totalMedals!: number;
+  totalAthletes!: number;
 
   constructor(private olympicService: OlympicService,
     private route: ActivatedRoute) {}
@@ -24,6 +27,17 @@ export class DetailComponent implements OnInit, OnDestroy {
         console.log(country.country)
         this.country = country;
         this.renderChart();
+
+    });
+
+    this.olympicService.getNumberOfJO(countryId).pipe(takeUntil(this.destroy$))
+      .subscribe(number => {
+          this.numberOfOlympics = number;
+      });
+    
+    this.olympicService.getMedalAndAthleteCount(countryId).pipe(takeUntil(this.destroy$)).subscribe(count => {
+      this.totalMedals = count.medals;
+      this.totalAthletes = count.athletes;
     });
   }
 

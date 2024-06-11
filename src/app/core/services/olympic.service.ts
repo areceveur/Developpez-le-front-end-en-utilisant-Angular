@@ -30,6 +30,10 @@ export class OlympicService {
     return participations.reduce((total, participation) => total + participation.medalsCount, 0);
   }
 
+  getTotalAthletes(participations: participations[]): number {
+    return participations.reduce((total, participation) => total + participation.athleteCount, 0);
+  }
+
   getCountryId(countryId: number): Observable<olympicsCountry> {
     return this.loadInitialData().pipe(
       map((data: olympicsCountry[]) => {
@@ -41,4 +45,24 @@ export class OlympicService {
       })
     );
   }
+
+  getNumberOfJO(countryId: number): Observable<number> {
+    return this.getCountryId(countryId).pipe(
+      map(country => country ? country.participations.length : 0)
+    );
+  }
+
+  getMedalAndAthleteCount(countryId: number): Observable<{ medals: number, athletes: number }> {
+    return this.getCountryId(countryId).pipe(
+      map(country => {
+        if (country) {
+          const medals = this.getTotalMedals(country.participations);
+          const athletes = this.getTotalAthletes(country.participations);
+          return { medals, athletes };
+        }
+        return { medals: 0, athletes: 0 };
+      })
+    );
+  }
+
 }
