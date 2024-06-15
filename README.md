@@ -11,7 +11,3 @@ Ce projet consiste à afficher les résultats de différents pays qui ont partic
 
 ### Utilisation
 En passant la souris sur un des quartiers, le nombre de médailles s'affiche. Pour afficher le détail d'un pays en particulier, cliquez sur le quartier correspondant. Pour revenir à la page principale, un bouton de retour est situé en bas de la page.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
